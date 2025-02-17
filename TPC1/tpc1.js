@@ -38,11 +38,11 @@ http.createServer((req, res) => {
                             var modelos = new Set();
                             var data = resp.data;
                             for (let elem of data) {
-                                if (modelos.has(elem.viatura.modelo)) {
+                                if (modelos.has(elem.viatura.matricula)) {
                                     continue;
                                 }
                                 carros.push(elem.viatura);
-                                modelos.add(elem.viatura.modelo);
+                                modelos.add(elem.viatura.matricula);
                             }
                             res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });
                             res.write("<h1>Carros</h1>");
