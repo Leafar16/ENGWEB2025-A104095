@@ -19,8 +19,15 @@ http.createServer((req, res) => {
                                     <li><b>NIF:</b>${i.nif}</li>
                                     <li><b>Data:</b>${i.data}</li>
                                     <li><b>Viatura:</b>${i.viatura.marca} ${i.viatura.modelo} - ${i.viatura.matricula}</li>
-                                    </ul>
-                                    </li>`);
+                                    <li><b>Nr de intervenções:</b>${i.nr_intervencoes}</li>
+                                    `);
+                                    res.write("<li><b>Intervenções:</b></li>");
+                                    res.write("<ul>");
+                                    for(let j=0;j<i.nr_intervencoes;j++){
+                                        res.write(`<li>${i.intervencoes[j].codigo} - ${i.intervencoes[j].nome}</li>`);
+                                    }
+                                    res.write("</ul>");
+                                    res.write("</ul></li>");
                             });
                             res.write("</ul>");
                             res.end();
