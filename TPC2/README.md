@@ -51,7 +51,8 @@ Este serviço em Node.js irá consumir a API de dados fornecida pelo `json-serve
             - **`/instrumentos/***`**: Exibe a lista de alunos que tocam um instrumento específico.
             - **`/cursos/***`**: Exibe a lista de alunos matriculados em um curso específico.
             - **`/alunos/***`**: Exibe as informações detalhadas de um aluno específico.
-***->identifcador da pagina(pode ser id,nome...)
+          
+***->identifcador da página(pode ser o id,nome...)
 
 3. **Tratamento de Erros**:
     - Se o arquivo CSS (`w3.css`) não puder ser lido, é retornada uma mensagem de erro.
