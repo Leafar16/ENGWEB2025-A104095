@@ -48,9 +48,11 @@ Este serviço em Node.js irá consumir a API de dados fornecida pelo `json-serve
         - **`/instrumentos`**: Exibe a lista de instrumentos, obtida da API.
         - **CSS (`/w3.css`)**: Lê e serve o arquivo `w3.css` para estilizar as páginas.
         - **Roteamento Dinâmico**:
-            - **`/instrumentos/[id]`**: Exibe a lista de alunos que tocam um instrumento específico.
-            - **`/cursos/[id]`**: Exibe a lista de alunos matriculados em um curso específico.
-            - **`/alunos/[id]`**: Exibe as informações detalhadas de um aluno específico.
+            - **`/instrumentos/***`**: Exibe a lista de alunos que tocam um instrumento específico.
+            - **`/cursos/***`**: Exibe a lista de alunos matriculados em um curso específico.
+            - **`/alunos/***`**: Exibe as informações detalhadas de um aluno específico.
+          
+***->identifcador da página(pode ser o id,nome...)
 
 3. **Tratamento de Erros**:
     - Se o arquivo CSS (`w3.css`) não puder ser lido, é retornada uma mensagem de erro.
@@ -58,7 +60,8 @@ Este serviço em Node.js irá consumir a API de dados fornecida pelo `json-serve
   
 
 ## Ficheiros
-- [Código-fonte](tpc2.js)
+- [Código-fonte](escola_server.js)
+- [Páginas](mypages.js)
 - [Ficheiro JSON](db.json)
 
 ## Como executar?
