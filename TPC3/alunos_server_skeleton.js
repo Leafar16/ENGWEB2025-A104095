@@ -91,7 +91,25 @@ var alunosServer = http.createServer((req, res) => {
                     axios.delete('http://localhost:3000/alunos/'+id)
                     .then(resp => {
                         res.writeHead(200,{'content-Type' : 'text/html, charset=utf-8'})
-                        res.write(`<pre>Registo Eliminado! ${JSON.stringify(resp.data)}</pre>`)
+                        res.write(`<!DOCTYPE html>
+                        <html>
+                            <head>
+                                <meta charset="UTF-8"/>
+                                <link rel="icon" href="favicon.png"/>
+                                <link rel="stylesheet" href="w3.css"/>
+                                <title>Student Form</title>
+                            </head>
+                            <body>
+                                <header class="w3-container w3-green w3-margin-bottom" align="center">
+                                <h2>Gestão Alunos</h2></header>
+                                <div align="center">
+                                <pre >Registo Eliminado!</pre>
+                                <a href="/alunos" class="w3-btn w3-square w3-grey w3-margin-bottom">Home</a>
+                                </div>
+                                <footer class="w3-container w3-green w3.margin-top" align="center">
+                                <h5>Generated na cadeira ENGWEB2025 in ${d}</h5></footer>
+                            </body>
+                        </html>`)
                         res.end()
                     })
                     .catch( err => {
@@ -113,8 +131,26 @@ var alunosServer = http.createServer((req, res) => {
                             axios.post('http://localhost:3000/alunos', result)
                             .then(resp => {
                                 res.writeHead(201,{'content-Type' : 'text/html, charset=utf-8'})
-                                res.write('<pre>Registo efetuado!</pre>')
-                                res.end()
+                        res.write(`<!DOCTYPE html>
+                        <html>
+                            <head>
+                                <meta charset="UTF-8"/>
+                                <link rel="icon" href="favicon.png"/>
+                                <link rel="stylesheet" href="w3.css"/>
+                                <title>Student Form</title>
+                            </head>
+                            <body>
+                                <header class="w3-container w3-green w3-margin-bottom" align="center">
+                                <h2>Gestão Alunos</h2></header>
+                                <div align="center">
+                                <pre >Registo Efetuado!</pre>
+                                <a href="/alunos" class="w3-btn w3-square w3-grey w3-margin-bottom">Home</a>
+                                </div>
+                                <footer class="w3-container w3-green w3.margin-top" align="center">
+                                <h5>Generated na cadeira ENGWEB2025 in ${d}</h5></footer>
+                            </body>
+                        </html>`)
+                        res.end()
                             })
                             .catch( err => {
                                 console.log(err)
@@ -133,8 +169,26 @@ var alunosServer = http.createServer((req, res) => {
                             axios.put('http://localhost:3000/alunos/'+result.id, result)
                             .then(resp => {
                                 res.writeHead(200,{'content-Type' : 'text/html, charset=utf-8'})
-                                res.write(`<pre>Registo Alterado! ${JSON.stringify(resp.data)}</pre>`)
-                                res.end()
+                        res.write(`<!DOCTYPE html>
+                        <html>
+                            <head>
+                                <meta charset="UTF-8"/>
+                                <link rel="icon" href="favicon.png"/>
+                                <link rel="stylesheet" href="w3.css"/>
+                                <title>Student Form</title>
+                            </head>
+                            <body>
+                                <header class="w3-container w3-green w3-margin-bottom" align="center">
+                                <h2>Gestão Alunos</h2></header>
+                                <div align="center">
+                                <pre >Registo alterado!</pre>
+                                <a href="/alunos" class="w3-btn w3-square w3-grey w3-margin-bottom">Home</a>
+                                </div>
+                                <footer class="w3-container w3-green w3.margin-top" align="center">
+                                <h5>Generated na cadeira ENGWEB2025 in ${d}</h5></footer>
+                            </body>
+                        </html>`)
+                        res.end()
                             })
                             .catch( err => {
                                 console.log(err)

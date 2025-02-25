@@ -46,11 +46,6 @@
       "gitlink": "RafaGomes1/EngWeb2024 (github.com)"
     },
     {
-      "id": "A97455",
-      "nome": "Henrique Nuno Marinho Malheiro",
-      "gitlink": "https://github.com/a97455/EngWeb2024"
-    },
-    {
       "id": "A104095",
       "nome": "Rafael Airosa Pereira",
       "gitlink": "https://github.com/Leafar16"
@@ -60,6 +55,7 @@
       "nome": "Ze Ladrão de Cãos",
       "gitlink": "https://github.com/zeeesoares",
       "tpc3": "1",
+      "tpc4": "1",
       "tpc6": "1"
     }
   ]
