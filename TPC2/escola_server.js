@@ -11,7 +11,7 @@ createServer(async (req, res) => {
         res.end();
 
     } else if (req.url == "/alunos") {
-        axios.get("http://localhost:3000/alunos")//passar para outro ficheiro.
+        axios.get("http://localhost:3000/alunos")
             .then((resp) => {
                 res.writeHead(200, { 'Content-Type': 'text/html' });
                 res.write(alunosPage(resp.data));
@@ -19,7 +19,7 @@ createServer(async (req, res) => {
             });
             
     } else if (req.url == "/cursos") {
-            axios.get("http://localhost:3000/cursos")//passar para outro ficheiro.
+            axios.get("http://localhost:3000/cursos")
                 .then((resp) => {
                     res.writeHead(200, { 'Content-Type': 'text/html' });
                     res.write(cursosPage(resp.data));
