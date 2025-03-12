@@ -1,0 +1,32 @@
+extends layout 
+
+block content
+  .w3-card-4
+    header.w3-container.w3-blue
+      h1= title
+    .w3-container  
+      table.w3-table-all 
+        tr
+            th Title
+            th Year
+            th Cast
+            th Genres 
+        each f in lista_filmes
+            tr  
+             td= f.title 
+             td= f.year
+             td 
+                ul.w3-ul
+                    each ator in f.cast 
+                        a(href="/ator/"+ator)
+                          li= ator
+                          
+             td
+                ul.w3-ul 
+                    each g in f.genres 
+                        li=g
+             td
+                a(href="/delete/"+f.id).w3-btn Delete
+             td   
+                a(href="/filmes/edit/"+f.id).w3-btn Edit
+    

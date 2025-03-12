@@ -1,0 +1,21 @@
+extends layout
+
+block content 
+    .w3-card-4
+        header.w3-container.w3-blue
+            h1 Editar Filme
+        .w3-container
+        form(method= "post")
+            fieldset 
+                legend Dados do filme
+                label Title 
+                input(type="text", name="titulo", value=filme.title).w3-input.w3-round
+                label Ano 
+                input(type="text", name="ano", value=filme.year).w3-input.w3-round
+                label Cast
+                input(type="text", name="cast", 
+                value=filme.cast.join(",") ).w3-input.w3-round.w3-grey
+                label Genres 
+                input(type="text", name="genres",value=filme.genres.join(",")).w3-input.w3-round.w3-grey
+            button(type="submit") Editar 
+
