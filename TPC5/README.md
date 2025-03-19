@@ -58,4 +58,4 @@ O servidor foi desenvolvido utilizando as seguintes tecnologias:
    ```sh
    npm start
 
-3. Acessar a [http](http://localhost:1406)
+3. Acessar http://localhost:1406
