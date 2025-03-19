@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  header.w3-container.w3-red
+      h1  Lista de Alunos
+        a(href="/new").w3-btn.w3-grey.w3-right.w3-xlarge +
+  .w3-container
+    table.w3-table-all 
+        tr
+            th ID
+            th Nome
+            th Git
+            th Opcões
+        each a in lista_alunos
+            tr  
+             td= a._id 
+             td
+                a(href=`/${a._id}`)= a.nome
+             td
+                a(href=a.gitlink)= a.gitlink
+             td 
+                ul.w3-ul 
+                    li 
+                        a(href=`delete/${a._id}`).w3-btn.w3-grey Eliminar
+                        a(href=`edit/${a._id}`).w3-btn.w3-grey Editar

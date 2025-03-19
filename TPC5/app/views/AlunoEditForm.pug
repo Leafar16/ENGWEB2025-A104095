@@ -1,0 +1,35 @@
+extends layout 
+block content 
+    header.w3-container.w3-red 
+        h2= `Informações de ${a.nome}`
+    w3.container 
+        form.w3-container(method="post")
+            fieldset
+                legend Metadados
+                label Id
+                input.w3-input.w3-round(type= "text",name="id",value= a._id)
+                label Nome
+                input.w3-input.w3-round(type= "text",name="nome",value= a.nome)
+                label GitLink
+                input.w3-input.w3-round(type= "text",name="gitlink",value= a.gitlink)
+
+            fieldset 
+                legend TPC's
+                label TPC1
+                input.w3-check(type= "checkbox",name="tpc1",value= `1`,checked= a.tpc1)
+                label TPC2
+                input.w3-check(type= "checkbox",name="tpc2",value= "1",checked= a.tpc2)
+                label TPC3
+                input.w3-check(type= "checkbox",name="tpc3",value= "1",checked= a.tpc3)
+                label TPC4
+                input.w3-check(type= "checkbox",name="tpc4",value= "1",checked= a.tpc4)
+                label TPC5
+                input.w3-check(type= "checkbox",name="tpc5",value= "1",checked= a.tpc5)
+                label TPC6
+                input.w3-check(type= "checkbox",name="tpc6",value= "1",checked= a.tpc6)
+                label TPC7
+                input.w3-check(type= "checkbox",name="tpc7",value= "1",checked= a.tpc7)
+                label TPC8
+                input.w3-check(type= "checkbox",name="tpc8",value= "1",checked= a.tpc8)
+
+            button.w3-btn.w3-grey(type="submit") Register
