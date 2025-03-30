@@ -12,10 +12,7 @@ module.exports.findByID=id=>{
 }
 
 module.exports.insert = aluno => {
-    console.log("antes do if")
     if(Aluno.find({_id:aluno.id}).exec().length !=1){
-        console.log("dentro do if")
-
         var newAluno = new Aluno(aluno)
         newAluno._id=aluno.id //porque nos forms pusemos id
         return newAluno.save()

@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1.w3-center.w3-blue Detalhes do Contrato
+
+  table.w3-table-all
+    tr
+      th ID do Contrato
+      td #{contrato._id}
+    tr
+      th Objeto do Contrato
+      td #{contrato.objectoContrato}
+    tr
+      th Data de Celebração
+      td #{contrato.dataCelebracaoContrato}
+    tr
+      th Preço Contratual (€)
+      td #{contrato.precoContratual}
+    tr
+      th NIPC da Entidade
+      td #{contrato.NIPC_entidade_comunicante}
+    tr
+      th Entidade Comunicante
+      td #{contrato.entidade_comunicante}
+
+  p.w3-center 
+    a.w3-center.w3-btn.w3-grey(href='/') Voltar à página principal

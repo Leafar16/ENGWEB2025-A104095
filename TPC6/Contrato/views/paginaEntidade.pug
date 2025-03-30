@@ -1,0 +1,38 @@
+extends layout
+
+block content
+  h1.w3-center.w3-blue Detalhes de #{nomeEntidade}
+
+  - var total = 0
+
+  p
+    strong NIPC da Entidade:
+    span #{nipc}
+  p
+    strong Nome da Entidade:
+    span #{nomeEntidade}
+
+  table.w3-table-all
+    thead
+      tr
+        th ID do Contrato
+        th Objeto do Contrato
+        th Data de Celebração
+        th Preço Contratual (€)
+        th Entidade Comunicante
+    tbody
+      each contrato in contratos
+        - total += parseFloat(contrato.precoContratual)
+        tr
+          td: a(href=`/contrato/${contrato._id}`) #{contrato._id}
+          td #{contrato.objectoContrato}
+          td #{contrato.dataCelebracaoContrato}
+          td #{contrato.precoContratual}
+          td #{contrato.entidade_comunicante}
+        
+  p
+    strong Somatório do valor dos contratos: €
+    span #{total.toFixed(2)}
+
+  p.w3-center
+    a.w3-center.w3-btn.w3-grey(href='/') Voltar à página principal
