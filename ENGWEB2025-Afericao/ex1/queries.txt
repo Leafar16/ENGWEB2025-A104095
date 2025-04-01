@@ -1,0 +1,66 @@
+
+QUERIES
+Q1 Quantos livros têm a palavra Love no título;
+livros> db.livros.countDocuments({ title: /Love/i})
+366
+
+
+Q2 Quais os títulos dos livros, em ordem alfabética, em que um dos autores tem apelido Austen?
+livros> db.livros.find({ author: { $regex: "Austen" } },{_id: 0, title:1 } ).sort( { title: 1 } )
+[
+  { title: 'Emma' },
+  { title: 'Mansfield Park' },
+  { title: 'Northanger Abbey' },
+  { title: 'Persuasion' },
+  { title: 'Pride and Prejudice' },
+  { title: 'Pride and Prejudice and Zombies' },
+  { title: 'Pride and Prejudice and Zombies: The Graphic Novel' },
+  { title: 'Sense and Sensibility' },
+  { title: 'The Complete Novels' }
+]
+
+
+Q3
+livros> db.livros.aggregate([
+...   { $unwind: "$author" },
+...   { $match: { author: /^[A-Za-z0-/^/ } },
+...   { $group: { _id: "$author" } },
+...   { $sort: { _id: 1 } },
+...   { $project: { _id: 0, author: "$_id" } }
+... ])
+
+
+Q4
+d.livros.aggregate(
+    { $unwind: "$genres" },
+    {
+        $group : {
+            _id: "$genres",
+            count: {$sum : 1}
+        }
+    },
+    { $sort: { count: -1 } },
+    { $project: { _id: 0, genre: "$_id", total: "$count" } } 
+)
+
+Q5
+db.livros.aggregate([
+  { $unwind: "$genres" },
+  { 
+    $group: {
+      _id: "$genres",
+      count: { $sum: 1 }
+    } 
+  },
+  { $sort: { count: -1 } },
+  { $project: { _id: 0, genre: "$_id", total: "$count" } } 
+])
+
+
+##Q6
+db.livros.find(
+  { characters: { $in: ["Sirius Black"] } },
+  { title: 1, isbn: 1, _id: 0 }
+).sort(
+  { title: 1 }
+)

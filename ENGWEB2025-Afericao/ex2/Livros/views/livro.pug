@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  header.w3-red.w3-center
+    h1 Detalhes do Livro: #{book.title}
+
+  div.book-details.w3-center
+    p
+      strong ID do Livro:
+      a(href=`/books/${book._id}`) #{book._id}
+    p
+      strong Autor:
+      a(href=`/authors/${book.authorId}`) #{book.author}
+    p
+      strong Gêneros:
+      ul.w3-ul.no-points
+        each genre in book.genres
+          li #{genre}
+    p
+      strong Descrição:
+      | #{book.description}
+
+    p
+      strong Data de Publicação:
+      | #{book.publishDate}
+
+    p
+      strong Páginas:
+      | #{book.pages}
+
+    if book.coverImg
+      img(src=book.coverImg, alt=`Capa de ${book.title}`, style="max-width: 200px;")
+
+  a(href='/') Voltar à lista de livros
+
+  footer.w3-red.w3-center
+    p Todos os direitos reservados © 2025

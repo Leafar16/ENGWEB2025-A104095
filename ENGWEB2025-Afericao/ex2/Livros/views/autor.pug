@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  header.w3-green.w3-center 
+    h1 Página do Autor
+
+    h2 Autor: #{author}
+
+  table.w3-table-all
+    thead
+      tr
+        th ID
+        th Título
+        th Data de Publicação
+        th Páginas
+    tbody
+      each book in books
+        tr
+          td
+            a(href=`/books/${book._id}`) #{book._id}  
+          td #{book.title}  
+          td #{book.publishDate}  
+          td #{book.pages}  
+
+  p Total de livros: #{books.length}
+
+  a(href='/') Voltar à Página Principal
+  footer.w3-green.w3-center
+    p Todos os direitos reservados © 2025 

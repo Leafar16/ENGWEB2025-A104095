@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  header.w3-blue.w3-container.w3-center
+    h1 Lista de Livros
+    p Meta-informação: Data de criação do arquivo: 2025-03-31
+
+  table.w3-table-all
+    thead
+      tr
+        th ID
+        th Título
+        th Autor
+        th Data de Publicação
+        th Páginas
+    tbody
+      each book in books
+        tr
+          td
+            a(href=`/books/${book._id}`) #{book._id}
+          td
+            a(href=`/authors/${book}`) #{book.title}
+          td
+            each author in book.author
+              a(href=`/entidades/${author}`) #{author}
+          td #{book.publishDate}
+          td #{book.pages}
+
+  footer.w3-blue.w3-center
+    p Todos os direitos reservados © 2025
