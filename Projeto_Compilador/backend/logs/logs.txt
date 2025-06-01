@@ -1,0 +1,84 @@
+2025-06-01T16:05:42.337Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:06:52.476Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:06:57.283Z - Utilizador: zeee | Ação: exportação | Detalhes: Item 326052351 criado via upload SIP
+2025-06-01T16:07:03.666Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:10:05.124Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:12:19.732Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:12:34.215Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:13:12.322Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:16:19.418Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:16:33.418Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:18:34.509Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:20:26.467Z - Utilizador: rafael | Ação: registo | Detalhes: Novo utilizador registado (rafael)
+2025-06-01T16:20:36.253Z - Utilizador: zeee | Ação: remoção_item | Detalhes: Item com ID 326052351 removido
+2025-06-01T16:22:38.727Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:25:16.947Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:25:23.483Z - Utilizador: zeee | Ação: importação | Detalhes: Item 724514312 criado via upload SIP
+2025-06-01T16:25:34.796Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:25:49.025Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:25:56.957Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:26:22.690Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:27:46.193Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:29:08.865Z - Utilizador: Rodrigo Lima | Ação: importação | Detalhes: Item 197099948 criado via upload SIP
+2025-06-01T16:29:30.788Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:29:57.516Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:30:50.931Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:43:46.010Z - Utilizador: zeee | Ação: registo | Detalhes: Novo utilizador registado (zeee)
+2025-06-01T16:43:54.722Z - Utilizador: Rodrigo Lima | Ação: registo | Detalhes: Novo utilizador registado (Rodrigo Lima)
+2025-06-01T16:44:03.005Z - Utilizador: admin | Ação: registo | Detalhes: Novo utilizador registado (admin)
+2025-06-01T16:44:10.694Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:44:25.469Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:45:47.965Z - Utilizador: zeee | Ação: importação | Detalhes: Item 581512089 criado via upload SIP
+2025-06-01T16:46:02.591Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:46:20.749Z - Utilizador: rafa | Ação: registo | Detalhes: Novo utilizador registado (rafa)
+2025-06-01T16:54:11.455Z - Utilizador: rafa | Ação: registo | Detalhes: Novo utilizador registado (rafa)
+2025-06-01T16:54:27.774Z - Utilizador: rafa | Ação: registo | Detalhes: Novo utilizador registado (rafa)
+2025-06-01T16:55:00.476Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:55:07.568Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:55:24.259Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T16:58:52.802Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:01:17.290Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:02:02.228Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:04:32.665Z - Utilizador: Rodrigo Lima | Ação: importação | Detalhes: Item 28775732 criado via upload SIP
+2025-06-01T17:06:11.659Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:06:22.500Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:06:28.847Z - Utilizador: zeee | Ação: importação | Detalhes: Item 367947399 criado via upload SIP
+2025-06-01T17:07:00.380Z - Utilizador: zeee | Ação: importação | Detalhes: Item 567564541 criado via upload SIP
+2025-06-01T17:10:30.437Z - Utilizador: zeee | Ação: importação | Detalhes: Item 695069371 criado via upload SIP
+2025-06-01T17:19:15.668Z - Utilizador: zeee | Ação: importação | Detalhes: Item 947976630 criado via upload SIP
+2025-06-01T17:19:50.375Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:19:55.871Z - Utilizador: zeee | Ação: remoção_item | Detalhes: Item com ID 695069371 removido
+2025-06-01T17:21:01.726Z - Utilizador: zeee | Ação: remoção_item | Detalhes: Item com ID 947976630 removido
+2025-06-01T17:21:10.646Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:21:16.111Z - Utilizador: zeee | Ação: importação | Detalhes: Item 585731788 criado via upload SIP
+2025-06-01T17:21:43.820Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:21:48.169Z - Utilizador: zeee | Ação: remoção_item | Detalhes: Item com ID 567564541 removido
+2025-06-01T17:21:49.981Z - Utilizador: zeee | Ação: remoção_item | Detalhes: Item com ID 367947399 removido
+2025-06-01T17:21:51.712Z - Utilizador: Rodrigo Lima | Ação: remoção_item | Detalhes: Item com ID 28775732 removido
+2025-06-01T17:21:53.385Z - Utilizador: zeee | Ação: remoção_item | Detalhes: Item com ID 581512089 removido
+2025-06-01T17:22:27.699Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:22:42.892Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:22:51.252Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:22:56.461Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:24:24.255Z - Utilizador: zeee | Ação: importação | Detalhes: Item 280370910 criado via upload SIP
+2025-06-01T17:28:12.850Z - Utilizador: zeee | Ação: importação | Detalhes: Item 763784143 criado via upload SIP
+2025-06-01T17:34:51.454Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:35:27.019Z - Utilizador: Rodrigo Lima | Ação: importação | Detalhes: Item 401606320 criado via upload SIP
+2025-06-01T17:56:32.434Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:58:18.347Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T17:59:16.999Z - Utilizador: zeee | Ação: importação | Detalhes: Item 655606543 criado via upload SIP
+2025-06-01T17:59:51.740Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T18:00:55.426Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T18:03:07.081Z - Utilizador: zeee | Ação: remoção_item | Detalhes: Item com ID 655606543 removido
+2025-06-01T18:03:25.255Z - Utilizador: zeee | Ação: importação | Detalhes: Item 120045802 criado via upload SIP
+2025-06-01T18:08:24.628Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T18:08:33.240Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T18:08:41.488Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T18:08:50.844Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T19:52:08.748Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T20:02:25.174Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T20:10:35.319Z - Utilizador: admin | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T20:13:19.218Z - Utilizador: zeee | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T20:13:25.724Z - Utilizador: Rodrigo Lima | Ação: login | Detalhes: Login efetuado com sucesso
+2025-06-01T20:45:16.186Z - Utilizador: user | Ação: registo | Detalhes: Novo utilizador registado (user)
+2025-06-01T20:45:23.470Z - Utilizador: user | Ação: login | Detalhes: Login efetuado com sucesso

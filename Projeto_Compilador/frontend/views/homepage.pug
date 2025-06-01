@@ -1,0 +1,119 @@
+extends layout
+
+block content
+  .w3-display-container.clean-bg(style='min-height: 100vh; background-color: white;')
+    .w3-display-middle.w3-center
+      .card.w3-card-4
+        .header.w3-padding-64
+          h1.w3-jumbo DigiME
+          p.w3-large.w3-opacity-60 O seu diário digital pessoal
+        .content.w3-padding-48
+          h2.w3-xxlarge.w3-text-dark-gray Bem-vindo!
+          p.w3-large
+            | Guarde seus pensamentos com
+            span.w3-text-orange.w3-semibold  estilo
+            |  e
+            span.w3-text-orange.w3-semibold  segurança.
+          .w3-margin-top
+            a.w3-button.w3-orange.w3-xlarge.w3-round-xxlarge.w3-hover-deep-orange.w3-margin-right(href='/login')
+              | Entrar
+            a.w3-button.w3-text-gray.w3-border.w3-border-orange.w3-xlarge.w3-round-xxlarge.w3-hover-orange(href='/register')
+              | Criar Conta
+    .copyright.w3-display-bottomright.w3-padding
+      p.w3-text-gray &copy; 2025 DigiME
+
+  style.
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      scroll-behavior: smooth;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 640px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f0f0f0;
+      padding: 2rem;
+    }
+
+    .header {
+      background: transparent;
+      color: #333;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin: 0;
+      color: #FF9800;
+    }
+
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .content p {
+      font-size: 1.125rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .w3-button {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 12px 32px;
+    }
+
+    .w3-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .w3-hover-orange:hover {
+      background-color: #FF9800 !important;
+      color: white !important;
+    }
+
+    .w3-hover-deep-orange:hover {
+      background-color: #F57C00 !important;
+      color: white !important;
+    }
+
+    .copyright {
+      font-size: 0.85rem;
+      color: #999;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    .copyright:hover {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2.5rem;
+      }
+
+      .content h2 {
+        font-size: 1.5rem;
+      }
+
+      .content p {
+        font-size: 1rem;
+      }
+
+      .w3-button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }

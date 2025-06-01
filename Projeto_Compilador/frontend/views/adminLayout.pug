@@ -1,0 +1,146 @@
+doctype html
+html(lang="pt")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title || 'DigiME'
+    link(rel="stylesheet", href="https://www.w3schools.com/w3css/4/w3.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css")
+    style.
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9fafb;
+        color: #333;
+        margin: 0;
+      }
+      .sidebar {
+        background-color: #ff9800;
+        color: white;
+        height: 100vh;
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding-top: 20px;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar-header {
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid #e67e22;
+        margin-bottom: 20px;
+      }
+      .sidebar-header h2 {
+        margin: 0;
+        font-weight: 700;
+        color: #fff3e0;
+      }
+      .sidebar-header p {
+        margin: 5px 0 0;
+        font-size: 0.9rem;
+        color: #fff3e0;
+      }
+      .sidebar-menu {
+        flex-grow: 1;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+      }
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .sidebar-menu a:hover, .sidebar-menu a.active {
+        background-color: #e65100;
+        color: #fff3e0;
+      }
+      .sidebar-menu a i {
+        width: 25px;
+        text-align: center;
+        font-size: 1.2rem;
+      }
+      .main-content {
+        margin-left: 250px;
+        padding: 30px;
+        min-height: 100vh;
+        background-color: #f9fafb;
+      }
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+      .page-header h1 {
+        font-size: 2rem;
+        color: #ff5722;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #fff3e0;
+      }
+      .user-profile span {
+        font-weight: 600;
+        color: #ff5722;
+      }
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+      }
+
+  body
+    .w3-display-container(style="min-height: 100vh;")
+      // Sidebar
+      .sidebar
+        .sidebar-header
+          h2 DigiME
+          p O seu diário digital
+
+        .sidebar-menu
+          a(href="/admin/users")
+            i.fas.fa-user
+            | Lista de Users
+          a(href="/admin/posts")
+            i.fas.fa-file
+            | Lista de Posts
+          a(href="/admin/logs" class=active)
+            i.fas.fa-ghost
+            | Logs
+          a(href="/logout")
+            i.fas.fa-sign-out-alt
+            | Sair
+
+      .main-content
+        block content

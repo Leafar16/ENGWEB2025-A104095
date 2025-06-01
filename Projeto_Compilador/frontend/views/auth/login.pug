@@ -1,0 +1,129 @@
+extends ../layout
+
+block content
+  .w3-display-container.clean-bg(style='min-height: 100vh; background-color: white;')
+    .w3-display-middle.w3-center
+      .card.w3-card-4(style='min-width: 800px;')
+        .header.w3-padding-64
+          h1.w3-jumbo.w3-text-orange(style='font-size: 3.5rem;') DigiME
+          p.w3-large.w3-opacity-60 O seu diário digital pessoal
+        .content.w3-padding-48
+          h2.w3-xxlarge Bem-vindo de volta!
+          if error
+            .w3-panel.w3-pale-red.w3-border.w3-leftbar.w3-border-red.w3-text-red.w3-margin-bottom(style="max-width: 400px; margin: 0 auto;")
+              i.fa.fa-exclamation-circle(style="margin-right: 8px;")
+              | #{error}
+          form(action="/login" method="post")
+            .w3-section.w3-relative(style="margin-top:0.5rem; margin-bottom:0.5rem;max-width: 400px; margin: 0 auto;")
+              input#w3-username.w3-input.w3-border.w3-round.input-padding(style="padding:8px 8px 8px 36px; font-size:0.95rem;" type="text" name="username" placeholder="Username" required autocomplete="username")
+              i.fa.fa-user.icon-left(style="position:absolute; left:12px; top:50%; transform: translateY(-50%); color:#f57c00; font-size:16px;")
+            .w3-section.w3-relative(style="margin-top:0.5rem; margin-bottom:0.5rem;max-width: 400px; margin: 0 auto;")
+              input#w3-password.w3-input.w3-border.w3-round.input-padding(style="padding:8px 8px 8px 36px; font-size:0.95rem;" type="password" name="password" placeholder="Senha" required autocomplete="current-password")
+              i.fa.fa-lock.icon-left(style="position:absolute; left:12px; top:50%; transform: translateY(-50%); color:#f57c00; font-size:16px;")
+            button.w3-button.w3-block.w3-orange.w3-large.w3-round-xlarge.w3-hover-deep-orange.w3-margin-top(type="submit" style="padding:8px 0; font-size:1.1rem;") Entrar
+          .w3-section.w3-center
+            p.w3-text-gray(style="margin: 20px 0;") ─── ou ───
+          .w3-section.w3-relative(style="gap: 1rem; margin-top: 1rem; margin-bottom: 1rem; display: flex; justify-content: center;")
+            button.w3-button.w3-white.w3-large.w3-round-xlarge.w3-border.w3-hover-light-gray(type="button" onclick="loginWithGoogle()" style="padding: 8px 16px; font-size: 1.1rem; display: flex; align-items: center; max-width: 400px; margin-right: 12px;")
+              img(src='https://www.google.com/favicon.ico' alt="Google" style="height: 24px; margin-right: 10px;")
+              span Entrar com Google
+            button.w3-button.w3-white.w3-large.w3-round-xlarge.w3-border.w3-hover-light-gray(type="button" onclick="loginWithFacebook()" style="padding: 8px 16px; font-size: 1.1rem; display: flex; align-items: center; max-width: 400px;")
+              img(src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="height: 24px; margin-right: 10px;")
+              span Entrar com Facebook
+          .w3-margin-top.w3-center
+            p
+              | Novo por aqui?
+              a.w3-text-orange.w3-hover-deep-orange(href="/register") Crie uma conta
+    .copyright.w3-display-bottomright.w3-padding
+      p.w3-text-gray &copy; 2025 DigiME
+  style.
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      scroll-behavior: smooth;
+      background-color: #ffffff;
+      color: #333;
+    }
+    .card {
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f0f0f0;
+      padding: 2rem;
+    }
+    .header {
+      background: transparent;
+      color: #333;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+    }
+    .header h1 {
+      font-weight: 800;
+      margin: 0;
+      color: #FF9800;
+    }
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    .w3-button {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 12px 32px;
+    }
+    .w3-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+    .w3-hover-deep-orange:hover {
+      background-color: #F57C00 !important;
+      color: white !important;
+    }
+    input.w3-input {
+      padding-left: 40px !important;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #444;
+    }
+    .icon-left {
+      font-size: 18px;
+      pointer-events: none;
+    }
+    .w3-section {
+      margin-top: 1.25rem !important;
+      margin-bottom: 1.25rem !important;
+    }
+    @media (max-width: 600px) {
+      .card {
+        padding: 1.5rem;
+        margin: 0 15px;
+        border-radius: 15px;
+        min-width: unset !important;
+      }
+      .header h1 {
+        font-size: 2.5rem;
+      }
+      .content h2 {
+        font-size: 1.5rem;
+      }
+      .header.w3-padding-64 {
+        padding: 48px 0 !important;
+      }
+      .content.w3-padding-48 {
+        padding: 24px 0 !important;
+      }
+    }
+  script.
+    function loginWithGoogle() {
+      const redirect = `${window.location.origin}/login-callback`;
+      const clientId = '924980442500-qlb03nf1kem72iviflqb5ishif8ijme3.apps.googleusercontent.com';
+      const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirect)}&response_type=token&scope=profile%20email&state=google`;
+      window.location.href = url;
+    }
+    function loginWithFacebook() {
+      const facebookAuthUrl = `https://www.facebook.com/v19.0/dialog/oauth?client_id=1230637954763062&redirect_uri=${window.location.origin}/login-callback&response_type=token&scope=public_profile&state=facebook`;
+      window.location.href = facebookAuthUrl.replace(/\s+/g, '');
+    }

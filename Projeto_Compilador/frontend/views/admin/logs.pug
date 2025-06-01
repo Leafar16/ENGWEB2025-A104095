@@ -1,0 +1,102 @@
+extends ../adminLayout
+
+block content
+  header.page-header.w3-flex.w3-justify-between.w3-align-middle.w3-padding
+    i.fa-solid.fa-file-alt.w3-xlarge(style="color: #FF9800;")
+    h1 Logs de Ações
+
+  // Filtros front-end
+  .w3-margin-bottom(style="max-width: 1200px; margin: 0 auto; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;")
+    input#w3-filterUser.w3-input.w3-border.w3-round.input-padding(type="text" placeholder="Filtrar por Utilizador" style="flex: 1; min-width: 150px;")
+    select#w3-filterAction.w3-input.w3-border.w3-round.input-padding(style="width: 150px;")
+      option(value="") Todas Ações
+      option(value="exportação") Exportação
+      option(value="login") Login
+      option(value="logout") Logout
+      option(value="outro") Outro
+    input#w3-filterDateFrom.w3-input.w3-border.w3-round.input-padding(type="date" title="Data Inicial")
+    input#w3-filterDateTo.w3-input.w3-border.w3-round.input-padding(type="date" title="Data Final")
+    button#w3-clearFilters.w3-button.w3-light-gray.w3-round(type="button") Limpar Filtros
+
+  if logs.length
+    table#w3-logsTable.w3-table-all.w3-hoverable.w3-striped.w3-bordered.w3-margin-top(style="width: 100%; max-width: 1200px; margin: 1rem auto;")
+      thead
+        tr.w3-orange
+          th ID
+          th Utilizador
+          th Ação
+          th Detalhes
+          th Timestamp
+      tbody
+        each log in logs
+            tr(
+                data-user=log.utilizador
+                data-action=log.acao
+                data-timestamp=(new Date(log.timestamp)).toISOString()
+            )
+                td= log._id
+                td= log.utilizador || '-'
+                td= log.acao || '-'
+                td= log.detalhes || '-'
+                td= log.timestamp ? new Date(log.timestamp).toLocaleString() : '-'
+
+
+  else
+    p.w3-center.w3-text-gray.w3-margin-top Não existem logs para mostrar.
+
+  script.
+    const filterUser = document.getElementById('w3-filterUser');
+    const filterAction = document.getElementById('w3-filterAction');
+    const filterDateFrom = document.getElementById('w3-filterDateFrom');
+    const filterDateTo = document.getElementById('w3-filterDateTo');
+    const clearFilters = document.getElementById('w3-clearFilters');
+    const table = document.getElementById('w3-logsTable');
+    const tbody = table ? table.querySelector('tbody') : null;
+
+    function filterLogs() {
+      if (!tbody) return;
+      const userFilter = filterUser.value.toLowerCase();
+      const actionFilter = filterAction.value;
+      const dateFrom = filterDateFrom.value ? new Date(filterDateFrom.value) : null;
+      const dateTo = filterDateTo.value ? new Date(filterDateTo.value) : null;
+
+      [...tbody.rows].forEach(row => {
+        const user = (row.getAttribute('data-user') || '').toLowerCase();
+        const action = row.getAttribute('data-action') || '';
+        const timestampStr = row.getAttribute('data-timestamp');
+        const timestamp = timestampStr ? new Date(timestampStr) : null;
+
+        const matchUser = user.includes(userFilter);
+        const matchAction = !actionFilter || action === actionFilter;
+
+        let matchDate = true;
+        if (dateFrom && timestamp) {
+          matchDate = timestamp >= dateFrom;
+        }
+        if (matchDate && dateTo && timestamp) {
+          matchDate = timestamp <= dateTo;
+        }
+
+        if (matchUser && matchAction && matchDate) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    filterUser.addEventListener('input', filterLogs);
+    filterAction.addEventListener('change', filterLogs);
+    filterDateFrom.addEventListener('change', filterLogs);
+    filterDateTo.addEventListener('change', filterLogs);
+
+    clearFilters.addEventListener('click', () => {
+      filterUser.value = '';
+      filterAction.value = '';
+      filterDateFrom.value = '';
+      filterDateTo.value = '';
+      filterLogs();
+    });
+
+    // Inicializar filtro (mostrar tudo)
+    filterLogs();

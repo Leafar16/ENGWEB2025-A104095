@@ -1,0 +1,95 @@
+extends layoutInterno
+
+block content
+  .w3-main(style='background-color: #fdf6f0; min-height: 100vh; padding: 20px;')
+    .page-header.w3-container.w3-padding-16
+      h1.w3-text-orange
+        i.fas.fa-cloud-upload-alt.w3-margin-right
+        | Carregar Arquivo ZIP
+
+    .upload-container
+      .upload-card
+        .upload-header
+          h1 Upload Rápido
+          p Selecione um arquivo ZIP para enviar
+
+        .upload-content
+          form#uploadForm(
+            action="/upload", 
+            method="POST", 
+            )
+            .upload-section
+              label(for="fileInput").w3-text-gray.w3-large Selecione o arquivo ZIP
+              input#fileInput(type="file", accept=".zip", class="w3-input w3-border w3-round", required=true)
+              p#fileName.w3-small.w3-margin-top(style="color: #666;")
+
+            .upload-actions(style="margin-top: 20px;")
+              button#uploadBtn(type="submit", class="w3-button w3-orange w3-round-large")
+                i.fas.fa-upload
+                | Enviar Arquivo
+
+  script.
+    document.addEventListener('DOMContentLoaded', function () {
+      const fileInput = document.getElementById('fileInput');
+      const fileNameDisplay = document.getElementById('fileName');
+      const form = document.getElementById('uploadForm');
+      const uploadBtn = document.getElementById('uploadBtn');
+
+      fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+          fileNameDisplay.textContent = 'Selecionado: ' + fileInput.files[0].name;
+        }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const file = fileInput.files[0];
+        if (!file || !file.name.endsWith('.zip')) {
+          alert('Por favor, selecione um arquivo ZIP válido.');
+          return;
+        }
+
+        uploadBtn.disabled = true;
+        uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+        const formData = new FormData();
+        formData.append('sipfile', file);
+        fetch(form.action, {
+          method: 'POST',
+          body: formData,
+        })
+        
+      });
+    });
+
+  style.
+    .upload-container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .upload-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      border: 1px solid #eee;
+      overflow: hidden;
+    }
+    .upload-header {
+      background: #ff9800;
+      color: white;
+      padding: 20px;
+    }
+    .upload-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .upload-content {
+      padding: 20px;
+    }
+    .upload-actions {
+      text-align: right;
+    }
+    .w3-button i {
+      margin-right: 8px;
+    }

@@ -1,0 +1,44 @@
+extends ../layoutInterno
+
+block content
+  .w3-container(style="max-width:600px;margin:auto;margin-top:80px")
+    h2.w3-text-orange Upload de Arquivo ZIP
+    form#w3uploadForm.w3-container.w3-card-4.w3-light-grey.w3-padding(method="post" action="/upload" enctype="multipart/form-data")
+      label.w3-text-grey(for="w3zipInput") Selecione o arquivo ZIP
+      input#w3zipInput.w3-input.w3-border.w3-round-large(type="file" name="sipFile" accept=".zip" required)
+      br
+      button.w3-button.w3-orange.w3-margin-top(type="submit") Enviar
+
+  script.
+    document.querySelector('#w3uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = document.querySelector('#w3zipInput');
+      const file = input.files[0];
+      if (!file) {
+        alert('Por favor selecione um ZIP.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('sipFile', file);
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert(result.message || 'Upload feito com sucesso!');
+          input.value = '';
+        } else {
+          alert(result.error || 'Erro ao enviar.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Erro de rede.');
+      }
+    });

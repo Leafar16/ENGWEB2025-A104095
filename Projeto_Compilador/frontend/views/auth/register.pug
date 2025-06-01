@@ -1,0 +1,131 @@
+extends ../layout
+
+block content
+  .w3-display-container.clean-bg(style="min-height: 100vh; background-color: white;")
+    .w3-display-middle.w3-center
+      .card.w3-card-4(style="min-width: 800px;")  
+        .header.w3-padding-64
+          h1.w3-jumbo.w3-text-orange DigiME
+          p.w3-large.w3-opacity-60 O seu diário digital pessoal
+        .content.w3-padding-48
+          h2.w3-xxlarge.mb-5 Registo
+          form(action="/register" method="post")
+            // Username input
+            .w3-section.w3-relative
+              input#w3-username.w3-input.w3-border.w3-round.input-padding(type="text" name="username" placeholder="Username" required autocomplete="username")
+              i.fa.fa-user.icon-left(style="position:absolute; left:12px; top:50%; transform: translateY(-50%); color:#f57c00;")
+            
+            // Email input
+            .w3-section.w3-relative
+              input#w3-email.w3-input.w3-border.w3-round.input-padding(type="email" name="email" placeholder="Email" required autocomplete="email")
+              i.fa.fa-envelope.icon-left(style="position:absolute; left:12px; top:50%; transform: translateY(-50%); color:#f57c00;")
+            
+            // Password input
+            .w3-section.w3-relative
+              input#w3-password.w3-input.w3-border.w3-round.input-padding(type="password" name="password" placeholder="Senha" required autocomplete="new-password")
+              i.fa.fa-lock.icon-left(style="position:absolute; left:12px; top:50%; transform: translateY(-50%); color:#f57c00;")
+
+            // Level select
+            .w3-section.w3-relative
+              select#w3-level.w3-input.w3-border.w3-round.input-padding(name="level" required)
+                option(value="" disabled selected) Nível
+                option(value="client") Client
+                option(value="admin") Admin
+              i.fa.fa-users.icon-left(style="position:absolute; left:12px; top:50%; transform: translateY(-50%); color:#f57c00;")
+
+            // Submit button
+            button.w3-button.w3-block.w3-orange.w3-xlarge.w3-round-xxlarge.w3-hover-deep-orange.w3-margin-top(type="submit") Registar
+
+          .w3-margin-top.w3-center
+            p
+              | Já tem uma conta? 
+              a.w3-text-orange.w3-hover-deep-orange(href="/login") Faça login
+
+    .copyright.w3-display-bottomright.w3-padding
+      p.w3-text-gray &copy; 2025 DigiME
+
+  style.
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      scroll-behavior: smooth;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f0f0f0;
+      padding: 2rem;
+    }
+
+    .header {
+      background: transparent;
+      color: #333;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 0;
+      color: #FF9800;
+    }
+
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .w3-button {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 12px 32px;
+    }
+
+    .w3-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .w3-hover-deep-orange:hover {
+      background-color: #F57C00 !important;
+      color: white !important;
+    }
+
+    input.w3-input, select.w3-input {
+      padding-left: 40px !important;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #444;
+    }
+
+    .icon-left {
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    .w3-section {
+      margin-top: 1.25rem !important;
+      margin-bottom: 1.25rem !important;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        padding: 1.5rem;
+        max-width: 90vw;
+      }
+      .header h1 {
+        font-size: 2rem;
+      }
+      .content h2 {
+        font-size: 1.5rem;
+      }
+    }

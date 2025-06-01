@@ -1,0 +1,402 @@
+extends ../layoutInterno
+
+block content
+  .w3-main(style='padding:20px')
+    .w3-container.w3-padding-32
+      // Perfil
+      .w3-container.w3-card-4.w3-white.w3-round-large.w3-margin-bottom
+        .w3-container.w3-padding-16
+          .w3-row(style='display: flex; align-items: center; gap: 20px;')
+            img.w3-circle(src='https://randomuser.me/api/portraits/men/23.jpg', alt='Profile', style='width: 150px; height: 150px; object-fit: cover;')
+            .w3-container
+              .w3-row
+                .w3-col.s6.w3-center
+                  .w3-padding-small.w3-round-large(style='background-color: #f1f1f1;')
+                    strong #{items.length}
+                    p.w3-text-grey.w3-small Atividades
+                .w3-col.s6.w3-center
+                  .w3-padding-small.w3-round-large(style='background-color: #f1f1f1;')
+                    strong #{followers.length}
+                    p.w3-text-grey.w3-small Seguidores
+          h2.w3-text-dark-grey.w3-margin-bottom Perfil de #{user}
+          p.w3-text-grey.w3-margin-bottom
+            | Bem-vindo ao seu perfil, #{user}!
+          button.w3-button.w3-orange.w3-margin-top(type='button' onclick='toggleUserSearch()')
+            i.fas.fa-search.w3-margin-right
+            | Selecionar Utilizadores
+          button.w3-button.w3-blue.w3-margin-top.w3-margin-left(type='button' onclick='toggleFollowers()')
+            i.fas.fa-users.w3-margin-right
+            | Ver Seguidores
+
+      // Containers de Seguidores e Pesquisa
+      .w3-container.w3-card-4.w3-white.w3-round-large.w3-margin-bottom(style='display: none' id='user-search-container')
+        .w3-container.w3-padding-16
+          select.w3-select.w3-border(id='userSearchSelect')
+            option(value='' disabled selected) Escolher utilizador
+          button.w3-button.w3-green.w3-margin-top(type='button' onclick='followSelectedUser()') Seguir
+
+      .w3-container.w3-card-4.w3-white.w3-round-large.w3-margin-bottom(style='display: none' id='followers-container')
+        .w3-container.w3-padding-16
+          select.w3-select.w3-border(id='followersSelect')
+            option(value='' disabled selected) Escolher seguidor
+          button.w3-button.w3-red.w3-margin-top(type='button' onclick='unfollowSelectedUser()') Deixar de Seguir
+
+      // Atividades
+      .w3-container
+        .w3-row.w3-margin-bottom
+          .w3-col.s12.m8.l9
+            h3.w3-text-dark-grey.w3-padding-16
+              i.fas.fa-book-open.w3-margin-right
+              | Suas Atividades
+          .w3-col.s12.m4.l3
+            .w3-container.w3-padding-16
+              .w3-input-group(style='display: flex; justify-content: flex-end;')
+                input.w3-input.w3-border(type="text", placeholder="Procurar por tags...", id="tagSearch")
+                button.w3-button.w3-orange(type="button", onclick="filterByTag()")
+                  i.fas.fa-search(style="color: white;")
+
+        each item in items
+          if item.showDateSeparator
+            h5.w3-text-grey.w3-margin-top(style='border-top: 1px solid #ccc; padding-top: 16px;')
+              i.fas.fa-calendar-alt.w3-margin-right
+              | #{item.dateLabel}
+
+          .w3-card-4.w3-white.w3-round-large.w3-margin-bottom.item-card(data-tags=item.classificadores ? item.classificadores.join(',') : '')
+            .w3-container.w3-padding-16
+              .w3-display-container.w3-margin-bottom(style='display: flex; align-items: center; justify-content: space-between;')
+                .w3-row(style='display: flex; gap: 12px; align-items: center;')
+                  img.w3-circle(src='https://randomuser.me/api/portraits/men/23.jpg', alt='Avatar', style='width: 50px; height: 50px; object-fit: cover;')
+                  .w3-display
+                    h4(style='margin: 0;') #{item.owner}
+                    small(style='color: grey; font-size: 0.85em;')
+                      | Criado em: #{new Date(item.dataCriacao).toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric' })}
+
+                .w3-row(style='display: flex; gap: 8px; align-items: center;')
+                  select.w3-select.w3-border(style="width: auto;" onchange=`updateVisibility('${item._id}', this.value)`)
+                    option(value='true' selected=item.publico === true) Público
+                    option(value='false' selected=item.publico === false) Privado
+                  button.w3-button.w3-red(type='button' onclick=`deleteItem('${item._id}')`) Remover
+
+            .w3-container.w3-padding
+              small.w3-text-grey(style='display: block; margin-bottom: 8px;')
+                | Publicado em: #{new Date(item.dataSubmissao).toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' })}
+
+              if item.classificadores && item.classificadores.length > 0
+                .w3-margin-bottom
+                  each tag in item.classificadores
+                    span.w3-tag.w3-blue-grey.w3-margin-right.w3-margin-bottom(style="cursor:pointer", onclick=`searchTag('${tag}')`) #{tag}
+
+              if item.tipo === 'foto'
+                p.w3-large #{item.descricao}
+                if item.ficheiros && item.ficheiros.length
+                  img(src=`http://localhost:3001${item.ficheiros[0]}`, alt=item.ficheiros[0], style='width: 100%; max-width: 500px; border-radius: 8px; object-fit: cover; margin-top: 8px;')
+              else if item.tipo === 'crónica'
+                p.w3-large #{item.descricao}
+              else if item.tipo === 'pensamento'
+                if item.formattedText
+                  pre.w3-panel.w3-leftbar.w3-border-orange.w3-pale-yellow.w3-padding(style='white-space: pre-wrap; font-family: "Courier New", monospace;') #{item.formattedText}
+                else
+                  blockquote.w3-panel.w3-leftbar.w3-border-orange.w3-pale-yellow.w3-padding
+                    p.w3-large #{item.descricao}
+
+              .w3-margin-top
+                small.w3-text-grey(id=`like-count-${item._id}`) #{item.likes ? item.likes.length : 0} Gostos
+
+            .w3-container.w3-padding(id=`comments-container-${item._id}`)
+              each comment in item.comentarios
+                .w3-container.w3-padding(style='display: flex; gap: 8px; margin-top: 8px;')
+                  img.w3-circle(src='https://randomuser.me/api/portraits/men/23.jpg', style='width:30px;height:30px;object-fit:cover')
+                  div
+                    strong= comment.autor
+                    p(style='margin:0')= comment.texto
+                    small.w3-text-grey= new Date(comment.data).toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+
+            .w3-container.w3-light-grey.w3-padding
+              .w3-row
+                .w3-col.s6
+                  button.w3-button.w3-block.w3-hover-light-grey(type='button' onclick=`toggleCommentField('${item._id}')`)
+                    i.far.fa-comment.w3-margin-right
+                    | Comentar
+                .w3-col.s6
+                  button.w3-button.w3-block.w3-hover-light-grey(type='button' onclick=`downloadItem('${item.owner}', '${item._id}')`)
+                    i.fas.fa-arrow-down.w3-margin-right
+                    | Exportar
+
+            .w3-container(style='display: none' id=`share-menu-${item._id}`)
+              .w3-row.w3-margin-top
+                .w3-col.s12
+                  select.w3-select.w3-border(id=`share-user-${item._id}`)
+                    option(value='' disabled selected) Escolher utilizador
+                    each follower in following
+                      option(value=follower) #{follower}
+                  button.w3-button.w3-blue.w3-block.w3-margin-top(onclick=`shareItem('${item._id}')`) Partilhar
+
+            .w3-container(style='display: none' id=`comment-field-${item._id}`)
+              .w3-row.w3-margin-top
+                .w3-col.s10
+                  textarea.w3-input.w3-border(placeholder='Digite seu comentário...' rows='2' id=`comment-text-${item._id}`)
+                .w3-col.s2
+                  button.w3-button.w3-blue.w3-block(onclick=`postComment('${item._id}')`) Enviar
+
+  // Scripts
+  script.
+    const currentUser = '#{user}';
+    const followers = !{JSON.stringify(followers || [])};
+    const following = !{JSON.stringify(following || [])};
+
+    async function deleteItem(itemId) {
+      if (!confirm('Tem certeza que deseja remover esta publicação?')) return;
+      try {
+        const response = await fetch(`http://localhost:3001/items/${itemId}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${document.cookie.split('token=')[1]}`
+          }
+        });
+        if (!response.ok) throw new Error('Erro ao remover');
+        alert('Item removido com sucesso!');
+        window.location.reload();
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao remover o item.');
+      }
+    }
+
+    async function updateVisibility(itemId, publico) {
+      try {
+        const response = await fetch(`http://localhost:3001/items/${itemId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${document.cookie.split('token=')[1]}`
+          },
+          body: JSON.stringify({ publico: publico === 'true' })
+        });
+        if (!response.ok) throw new Error('Erro ao atualizar visibilidade');
+        alert('Visibilidade atualizada com sucesso!');
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao atualizar visibilidade.');
+      }
+    }
+
+    function toggleUserSearch() {
+      const searchContainer = document.getElementById('user-search-container');
+      searchContainer.style.display = searchContainer.style.display === 'none' ? 'block' : 'none';
+      if (searchContainer.style.display === 'block') {
+        populateUserDropdown();
+      }
+    }
+
+    function toggleFollowers() {
+      const followersContainer = document.getElementById('followers-container');
+      followersContainer.style.display = followersContainer.style.display === 'none' ? 'block' : 'none';
+      if (followersContainer.style.display === 'block') {
+        populateFollowersDropdown();
+      }
+    }
+
+    async function populateUserDropdown() {
+      const select = document.getElementById('userSearchSelect');
+      select.innerHTML = '<option value="" disabled selected>Escolher utilizador</option>';
+      try {
+        const response = await fetch(`http://localhost:3001/users/fillfollow/${currentUser}`, {
+          headers: { 'Authorization': `Bearer ${document.cookie.split('token=')[1]}` }
+        });
+        if (!response.ok) throw new Error('Failed to fetch users');
+        const users = await response.json();
+        users.forEach(user => {
+          const option = document.createElement('option');
+          option.value = user.username;
+          option.text = user.username;
+          select.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao carregar utilizadores');
+      }
+    }
+
+    async function populateFollowersDropdown() {
+      const select = document.getElementById('followersSelect');
+      select.innerHTML = '<option value="" disabled selected>Escolher seguidor</option>';
+      try {
+        const response = await fetch(`http://localhost:3001/users/following/${currentUser}`, {
+          headers: { 'Authorization': `Bearer ${document.cookie.split('token=')[1]}` }
+        });
+        if (!response.ok) throw new Error('Failed to fetch followers');
+        const users = await response.json();
+        users.forEach(user => {
+          const option = document.createElement('option');
+          option.value = user.username;
+          option.text = user.username;
+          select.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao carregar seguidores');
+      }
+    }
+
+    async function followSelectedUser() {
+      const select = document.getElementById('userSearchSelect');
+      const username = select.value;
+      if (!username) {
+        alert('Selecione um utilizador para seguir');
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:3001/users/follow/${username}`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${document.cookie.split('token=')[1]}` 
+          },
+          body: JSON.stringify({ follower: currentUser })
+        });
+        if (!response.ok) throw new Error('Failed to follow user');
+        alert('Seguido com sucesso');
+        window.location.reload();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao seguir utilizador');
+      }
+    }
+
+    async function unfollowSelectedUser() {
+      const select = document.getElementById('followersSelect');
+      const username = select.value;
+      if (!username) {
+        alert('Selecione um seguidor para deixar de seguir');
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:3001/users/unfollow/${username}`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${document.cookie.split('token=')[1]}` 
+          },
+          body: JSON.stringify({ follower: currentUser })
+        });
+        if (!response.ok) throw new Error('Failed to unfollow user');
+        alert('Deixou de seguir com sucesso');
+        window.location.reload();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao deixar de seguir utilizador');
+      }
+    }
+
+    async function postComment(itemId) {
+      const commentText = document.getElementById(`comment-text-${itemId}`).value;
+      if (!commentText.trim()) {
+        alert('O comentário não pode estar vazio');
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:3001/items/${itemId}/comments`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${document.cookie.split('token=')[1]}` 
+          },
+          body: JSON.stringify({
+            texto: commentText,
+            autor: currentUser
+          })
+        });
+        if (!response.ok) throw new Error('Failed to post comment');
+        const data = await response.json();
+        updateCommentUI(itemId, data.comentarios.slice(-1)[0]);
+        document.getElementById(`comment-text-${itemId}`).value = '';
+        toggleCommentField(itemId);
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao postar comentário');
+      }
+    }
+
+    function updateCommentUI(itemId, comment) {
+      const date = new Date(comment.data).toLocaleDateString('pt-PT', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      const commentsContainer = document.getElementById(`comments-container-${itemId}`);
+      const commentElement = document.createElement('div');
+      commentElement.className = 'w3-container w3-padding';
+      commentElement.style.display = 'flex';
+      commentElement.style.gap = '8px';
+      commentElement.style.marginTop = '8px';
+      commentElement.innerHTML = `
+        <img src="https://randomuser.me/api/portraits/men/23.jpg" 
+            class="w3-circle" 
+            style="width:30px;height:30px;object-fit:cover">
+        <div>
+            <strong>${comment.autor}</strong>
+            <p style="margin:0">${comment.texto}</p>
+            <small style="color: grey;">${date}</small>
+        </div>
+      `;
+      commentsContainer.appendChild(commentElement);
+    }
+
+    async function downloadItem(username, pubId) {
+      try {
+        const response = await fetch(`http://localhost:3001/items/download/${username}/${pubId}`, {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${document.cookie.split('token=')[1]}` }
+        });
+        if (!response.ok) throw new Error('Failed to download item');
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `download_${username}_${pubId}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao descarregar item');
+      }
+    }
+
+    function toggleCommentField(itemId) {
+      const field = document.getElementById(`comment-field-${itemId}`);
+      field.style.display = field.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function searchTag(tag) {
+      document.getElementById('tagSearch').value = tag;
+      filterByTag();
+    }
+
+    function filterByTag() {
+      const searchTerm = document.getElementById('tagSearch').value.trim().toLowerCase();
+      const items = document.getElementsByClassName('item-card');
+      if (searchTerm === '') {
+        for (let item of items) {
+          item.style.display = '';
+        }
+        return;
+      }
+      for (let item of items) {
+        const tags = item.getAttribute('data-tags').toLowerCase();
+        if (tags.includes(searchTerm)) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    document.getElementById('tagSearch').addEventListener('keyup', function(event) {
+      if (event.key === 'Enter') {
+        filterByTag();
+      }
+    });

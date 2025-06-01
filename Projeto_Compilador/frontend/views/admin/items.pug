@@ -1,0 +1,209 @@
+extends ../adminLayout
+
+block content
+  header.page-header.w3-flex.w3-justify-between.w3-align-middle.w3-padding
+    i.fa-solid.fa-photo-film.w3-xlarge(style="color: #FF9800;")
+    h1 Lista de Items
+
+  // Filtros front-end
+  .w3-margin-bottom(style="max-width: 800px; margin: 0 auto; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;")
+    input#w3-filterDate.w3-input.w3-border.w3-round.input-padding(type="date" placeholder="Filtrar por data" style="min-width: 160px;")
+    select#w3-filterTipo.w3-input.w3-border.w3-round.input-padding(style="min-width: 160px;")
+      option(value="") Todos Tipos
+      - const tipos = [...new Set(items.map(i => i.tipo))].sort()
+      each tipo in tipos
+        option(value=tipo)= tipo
+    button#w3-clearFilters.w3-button.w3-light-gray.w3-round(type="button") Limpar Filtros
+
+  if items.length
+    table#w3-itemsTable.w3-table-all.w3-hoverable.w3-striped.w3-bordered.w3-margin-top(style="width: 100%; max-width: 1200px; margin: 1rem auto;")
+      thead
+        tr.w3-orange
+          th ID
+          th Título
+          th Descrição
+          th Tipo
+          th Data Submissão
+          th Data Criação
+          th Produtor
+          th Público
+          th Classificadores
+          th Nº Ficheiros
+          th Likes
+          th.w3-center Ações
+      tbody
+        each item in items
+          tr(data-tipo=item.tipo data-data=(new Date(item.dataSubmissao).toISOString().slice(0,10)))
+            td= item._id
+            td= item.titulo
+            td(style="max-width: 400px; white-space: normal;")= item.descricao
+            td= item.tipo
+            td= new Date(item.dataSubmissao).toLocaleDateString('pt-PT')
+            td= new Date(item.dataCriacao).toLocaleDateString('pt-PT')
+            td= item.produtor
+            td= item.publico ? 'Sim' : 'Não'
+            td= item.classificadores.join(', ')
+            td= item.ficheiros.length
+            td= item.likes.length
+            td.w3-center.w3-padding
+              .actions-container(style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;")
+                button.w3-button.w3-small.w3-blue.w3-round(
+                  type="button"
+                  title="Visualizar"
+                  onclick=`showItemModal(${JSON.stringify(item)})`
+                )
+                  i.fa.fa-eye
+                form(action=`/admin/items/${item._id}?_method=DELETE` method="post" style="margin: 0;")
+                  button.w3-button.w3-small.w3-red.w3-round(
+                    type="submit"
+                    title="Apagar"
+                    onclick="return confirm('Tem a certeza que deseja apagar este item?');"
+                  )
+                    i.fa.fa-trash
+                button.w3-button.w3-small.w3-blue.w3-round(
+                  type="button"
+                  title="Exportar"
+                  onclick=`downloadItem('${item.produtor}', '${item._id}')`
+                )
+                  i.fa.fa-download
+  else
+    p.w3-center.w3-text-gray.w3-margin-top Não existem items para mostrar.
+
+  div#w3-viewModal.w3-modal
+    div.w3-modal-content.w3-card-4(style="max-width: 800px;")
+      header.w3-container.w3-orange
+        span.w3-button.w3-display-topright(onclick="document.getElementById('w3-viewModal').style.display='none'") ×
+        h2 Detalhes do Item
+      div.w3-container.w3-padding(id="modalContent")
+
+  script.
+    function showItemModal(item) {
+      console.log('showItemModal called', item);
+      const modalContent = document.getElementById('modalContent');
+
+      modalContent.innerHTML = '';
+
+      if (item.showDateSeparator) {
+        modalContent.innerHTML += `
+          <h5 class="w3-text-grey w3-margin-top" style="border-top: 1px solid #ccc; padding-top: 16px;">
+            <i class="fas fa-calendar-alt w3-margin-right"></i>
+            ${item.dateLabel}
+          </h5>
+        `;
+      }
+
+      modalContent.innerHTML += `
+        <div class="w3-card-4 w3-white w3-round-large w3-margin-bottom item-card" data-tags="${item.classificadores ? item.classificadores.join(',') : ''}">
+          <div class="w3-container w3-padding-16">
+            <div class="w3-display-container w3-margin-bottom" style="display: flex; align-items: center; gap: 12px;">
+              <img class="w3-circle" src="https://randomuser.me/api/portraits/men/23.jpg" alt="Avatar" style="width: 50px; height: 50px; object-fit: cover;">
+              <div class="w3-display">
+                <h4 style="margin: 0;">${item.owner}</h4>
+                <small style="color: grey; font-size: 0.85em;">
+                  Criado em: ${new Date(item.dataCriacao).toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', year: 'numeric' })}
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="w3-container w3-padding">
+            <small class="w3-text-grey" style="display: block; margin-bottom: 8px;">
+              Publicado em: ${new Date(item.dataSubmissao).toLocaleDateString('pt-PT', { day: '2-digit', month: 'long', year: 'numeric' })}
+            </small>
+      `;
+
+      if (item.classificadores && item.classificadores.length > 0) {
+        modalContent.innerHTML += `<div class="w3-margin-bottom">`;
+        item.classificadores.forEach(tag => {
+          modalContent.innerHTML += `
+            <span class="w3-tag w3-blue-grey w3-margin-right w3-margin-bottom" style="cursor:pointer" onclick="searchTag('${tag}')">${tag}</span>
+          `;
+        });
+        modalContent.innerHTML += `</div>`;
+      }
+
+      if (item.tipo === 'foto' && item.ficheiros && item.ficheiros.length) {
+        modalContent.innerHTML += `
+          <div class="w3-display-container w3-margin-bottom" style="display: flex; align-items: center; gap: 12px;">
+            <img src="http://localhost:3001${item.ficheiros[0]}" alt="${item.ficheiros[0]}" style="width: 100%; max-width: 500px; border-radius: 8px; object-fit: cover; margin-top: 8px;">
+          </div>
+        `;
+      }
+
+      modalContent.innerHTML += `
+          <p class="w3-large">${item.descricao}</p>
+      `;
+
+      if (item.comentarios && item.comentarios.length > 0) {
+        modalContent.innerHTML += `<div class="w3-container w3-padding" id="comments-container-${item._id}">`;
+        item.comentarios.forEach(comment => {
+          modalContent.innerHTML += `
+            <div class="w3-container w3-padding" style="display: flex; gap: 8px; margin-top: 8px;">
+              <img class="w3-circle" src="https://randomuser.me/api/portraits/men/23.jpg" style="width:30px;height:30px;object-fit:cover">
+              <div>
+                <strong>${comment.autor}</strong>
+                <p style="margin:0">${comment.texto}</p>
+                <small class="w3-text-grey">${comment.dataFormatada}</small>
+              </div>
+            </div>
+          `;
+        });
+        modalContent.innerHTML += `</div>`;
+      }
+
+      modalContent.innerHTML += `</div></div>`;
+
+      document.getElementById('w3-viewModal').style.display = 'block';
+    }
+
+    const filterDate = document.getElementById('w3-filterDate');
+    const filterTipo = document.getElementById('w3-filterTipo');
+    const clearFilters = document.getElementById('w3-clearFilters');
+    const table = document.getElementById('w3-itemsTable');
+    const tbody = table ? table.querySelector('tbody') : null;
+
+    function filterItems() {
+      const dateFilter = filterDate.value;
+      const tipoFilter = filterTipo.value;
+
+      [...tbody.rows].forEach(row => {
+        const rowDate = row.getAttribute('data-data');
+        const rowTipo = row.getAttribute('data-tipo');
+
+        const matchDate = !dateFilter || rowDate === dateFilter;
+        const matchTipo = !tipoFilter || rowTipo === tipoFilter;
+
+        row.style.display = (matchDate && matchTipo) ? '' : 'none';
+      });
+    }
+
+    if (filterDate && filterTipo && clearFilters && tbody) {
+      filterDate.addEventListener('change', filterItems);
+      filterTipo.addEventListener('change', filterItems);
+      clearFilters.addEventListener('click', () => {
+        filterDate.value = '';
+        filterTipo.value = '';
+        filterItems();
+      });
+    }
+
+    async function downloadItem(username, pubId) {
+      try {
+        const response = await fetch(`http://localhost:3001/items/download/${username}/${pubId}`, {
+          method: 'GET',
+          headers: { 'Authorization': `Bearer ${document.cookie.split('token=')[1]}` }
+        });
+        if (!response.ok) throw new Error('Failed to download item');
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `download_${username}_${pubId}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Erro ao descarregar item');
+      }
+    }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sip>
+  <metadata>
+    <id>12345</id>
+    <titulo>Nova Foto de Perfil</titulo>
+    <descricao>Nova foto de perfil #newpfp</descricao>
+    <tipo>foto</tipo>
+    <dataCriacao>2025-04-01T10:00:00Z</dataCriacao>
+    <produtor>zeee</produtor>
+    <publico>true</publico>
+    <classificadores>perfil,fotografia</classificadores>
+  </metadata>
+  <files>
+    <file>
+      <path>pfp.jpg</path>
+    </file>
+  </files>
+</sip>

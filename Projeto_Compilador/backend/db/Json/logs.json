@@ -1,0 +1,37 @@
+[
+    {
+        "_id": 1,
+        "utilizador": "admin",
+        "acao": "upload SIP",
+        "detalhes": "Viagem a Lisboa",
+        "timestamp": "2025-04-02T12:00:00Z"
+    },
+    {
+        "_id": 2,
+        "utilizador": "zeee",
+        "acao": "download SIP",
+        "detalhes": "Treino matinal",
+        "timestamp": "2025-04-04T08:00:00Z"
+    },
+    {
+        "_id": 3,
+        "utilizador": "rodrigo",
+        "acao": "comentário adicionado",
+        "detalhes": "Adorei esse passeio!",
+        "timestamp": "2025-04-03T09:30:00Z"
+    },
+    {
+        "_id": 4,
+        "utilizador": "admin",
+        "acao": "edição SIP",
+        "detalhes": "Atualização de detalhes do treino",
+        "timestamp": "2025-04-04T09:00:00Z"
+    },
+    {
+        "_id": 5,
+        "utilizador": "zeee",
+        "acao": "upload SIP",
+        "detalhes": "Novo treino de corrida",
+        "timestamp": "2025-04-05T10:00:00Z"
+    }
+]

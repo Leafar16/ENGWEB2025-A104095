@@ -1,0 +1,27 @@
+[
+    {
+        "_id": 1,
+        "nome": "Portugal",
+        "descricao": "Coisas relacionadas com o país"
+    },
+    {
+        "_id": 2,
+        "nome": "cultura",
+        "descricao": "Eventos e atividades culturais"
+    },
+    {
+        "_id": 3,
+        "nome": "verão",
+        "descricao": "Conteúdos de verão"
+    },
+    {
+        "_id": 4,
+        "nome": "desporto",
+        "descricao": "Atividades físicas"
+    },
+    {
+        "_id": 5,
+        "nome": "corrida",
+        "descricao": "Atividades de corrida"
+    }
+]

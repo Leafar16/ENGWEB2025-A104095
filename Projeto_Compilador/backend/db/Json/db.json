@@ -1,0 +1,76 @@
+{
+    "users": [
+      {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@example.com",
+        "passwordHash": "$2b$10$hashsimulado",
+        "role": "admin"
+      },
+      {
+        "id": 2,
+        "username": "zeee",
+        "email": "zeee@example.com",
+        "passwordHash": "$2b$10$hashsimulado",
+        "role": "consumer"
+      },
+      {
+          "id": 3,
+          "username": "rodrigo",
+          "email": "rodrigo@example.com",
+          "passwordHash": "$2b$10$hashsimulado",
+          "role": "producer"
+      }
+    ],
+    "items": [
+      {
+        "id": 1,
+        "titulo": "Viagem a Lisboa",
+        "descricao": "Uma viagem incrível à capital!",
+        "tipo": "viagem",
+        "dataCriacao": "2025-04-01T10:00:00Z",
+        "dataSubmissao": "2025-04-02T12:00:00Z",
+        "produtor": 1,
+        "publico": true,
+        "classificadores": ["Portugal", "cultura", "verão"],
+        "ficheiros": ["foto1.jpg", "roteiro.pdf"],
+        "comentarios": [
+          {
+            "texto": "Adorei esse passeio!",
+            "autor": "convidado123",
+            "data": "2025-04-03T09:30:00Z"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "titulo": "Treino matinal",
+        "descricao": "Corrida de 5km no parque",
+        "tipo": "treino",
+        "dataCriacao": "2025-04-04T07:00:00Z",
+        "dataSubmissao": "2025-04-04T07:30:00Z",
+        "produtor": 1,
+        "publico": false,
+        "classificadores": ["desporto", "corrida"],
+        "ficheiros": [],
+        "comentarios": []
+      }
+    ],
+    "classificadores": [
+      { "id": 1, "nome": "Portugal", "descricao": "Coisas relacionadas com o país" },
+      { "id": 2, "nome": "cultura", "descricao": "Eventos e atividades culturais" },
+      { "id": 3, "nome": "verão", "descricao": "Conteúdos de verão" },
+      { "id": 4, "nome": "desporto", "descricao": "Atividades físicas" },
+      { "id": 5, "nome": "corrida", "descricao": "Atividades de corrida" }
+    ],
+    "logs": [
+      {
+        "id": 1,
+        "utilizador": "admin",
+        "acao": "upload SIP",
+        "detalhes": "Viagem a Lisboa",
+        "timestamp": "2025-04-02T12:00:00Z"
+      }
+    ]
+  }
+  

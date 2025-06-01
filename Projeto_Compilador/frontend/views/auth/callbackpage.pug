@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title Redirecionar login Google
+    script.
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const accessToken = params.get('access_token');
+      const state = params.get('state');
+
+      if (state === 'google' && accessToken) {
+        const redirectUrl = "/login-callback?access_token=" + accessToken + "&state=" + state;
+        window.location.href = redirectUrl;
+      } else if (state === 'facebook' && accessToken) {
+        const redirectUrl = "/login-callback?access_token=" + accessToken + "&state=" + state;
+        window.location.href = redirectUrl;
+      }
+  body
+    p A redirecionar, por favor aguarde...

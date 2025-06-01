@@ -1,0 +1,175 @@
+extends ../adminLayout
+
+block content
+  header.page-header.w3-flex.w3-justify-between.w3-align-middle.w3-padding
+    i.fa-solid.fa-users.w3-xlarge(style="color: #FF9800;")
+    h1 Lista de Utilizadores
+
+  .w3-margin-bottom(style="max-width: 900px; margin: 0 auto; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;")
+    input#w3-filterUsername.w3-input.w3-border.w3-round.input-padding(type="text" placeholder="Filtrar por username" style="flex: 1; min-width: 150px;")
+    select#w3-filterLevel.w3-input.w3-border.w3-round.input-padding(style="width: 150px;")
+      option(value="") Todos Níveis
+      option(value="client") Client
+      option(value="admin") Admin
+    button#w3-clearFilters.w3-button.w3-light-gray.w3-round(type="button") Limpar Filtros
+    button#w3-openModalBtn.w3-button.w3-orange.w3-round.w3-hover-deep-orange(type="button")
+      i.fa.fa-plus-circle
+      |   Novo Utilizador
+
+  if users.length
+    table#w3-usersTable.w3-table-all.w3-hoverable.w3-striped.w3-bordered.w3-margin-top(style="width: 100%; max-width: 1200px; margin: 1rem auto;")
+      thead
+        tr.w3-orange
+          th ID
+          th Username
+          th Email
+          th Nível
+          th Ativo
+          th.w3-center Ações
+      tbody
+        each user in users
+          tr(data-level=user.level)
+            td= user._id
+            td.w3-username= user.username
+            td= user.email || '-'
+            td= user.level
+            td= user.active ? 'Sim' : 'Não'
+            td.w3-center.w3-padding
+              .actions-container(style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;")
+                a.w3-button.w3-small.w3-teal.w3-round.edit-user-btn(
+                  href="#"
+                  data-id=user._id
+                  data-username=user.username
+                  data-email=user.email
+                  data-level=user.level
+                  title="Editar"
+                )
+                  i.fa.fa-edit
+                form(action=`/admin/users/${user._id}?method=DELETE` method="post" style="margin: 0;")
+                  button.w3-button.w3-small.w3-red.w3-round(type="submit" title="Apagar" onclick="return confirm('Tem a certeza que deseja apagar este utilizador?');")
+                    i.fa.fa-trash
+  else
+    p.w3-center.w3-text-gray.w3-margin-top Não existem utilizadores para mostrar.
+
+  .w3-modal#w3-userModal(style="display:none;")
+    .w3-modal-content.w3-card-4.w3-animate-top(style="max-width: 600px; margin: 5% auto; border-radius: 12px;")
+      header.w3-container.w3-orange.w3-padding
+        span#w3-closeModalBtn.w3-button.w3-display-topright(title="Fechar") &times;
+        h2 Modal de Utilizador
+
+      main.w3-container.w3-padding
+        form#w3-userForm(action="/register/admin" method="post")
+          if error
+            .w3-panel.w3-pale-red.w3-border.w3-leftbar.w3-border-red.w3-text-red.w3-margin-bottom(style="max-width: 400px; margin: 0 auto;")
+              i.fa.fa-exclamation-circle(style="margin-right: 8px;")
+              | #{error}
+
+          .w3-section.w3-relative
+            input#w3-username.w3-input.w3-border.w3-round.input-padding(type="text" name="username" placeholder="Username" required autocomplete="username")
+
+          .w3-section.w3-relative
+            input#w3-email.w3-input.w3-border.w3-round.input-padding(type="email" name="email" placeholder="Email" required autocomplete="email")
+
+          .w3-section.w3-relative(id="passwordSection")
+            input#w3-password.w3-input.w3-border.w3-round.input-padding(type="password" name="password" placeholder="Senha" required autocomplete="new-password")
+
+          .w3-section.w3-relative
+            select#w3-level.w3-input.w3-border.w3-round.input-padding(name="level" required)
+              option(value="" disabled selected) Nível
+              option(value="client") Client
+              option(value="admin") Admin
+
+          button#w3-submitBtn.w3-button.w3-block.w3-orange.w3-xlarge.w3-round-xxlarge.w3-hover-deep-orange.w3-margin-top(type="submit") Registar
+
+  script.
+    const filterUsername = document.getElementById('w3-filterUsername');
+    const filterLevel = document.getElementById('w3-filterLevel');
+    const clearFilters = document.getElementById('w3-clearFilters');
+    const table = document.getElementById('w3-usersTable');
+    const tbody = table ? table.querySelector('tbody') : null;
+
+    function filterUsers() {
+      if (!tbody) return;
+      const usernameFilter = filterUsername.value.toLowerCase();
+      const levelFilter = filterLevel.value;
+
+      [...tbody.rows].forEach(row => {
+        const username = row.querySelector('.w3-username').textContent.toLowerCase();
+        const level = row.getAttribute('data-level');
+
+        const matchUsername = username.includes(usernameFilter);
+        const matchLevel = levelFilter === '' || level === levelFilter;
+
+        row.style.display = (matchUsername && matchLevel) ? '' : 'none';
+      });
+    }
+
+    filterUsername.addEventListener('input', filterUsers);
+    filterLevel.addEventListener('change', filterUsers);
+    clearFilters.addEventListener('click', () => {
+      filterUsername.value = '';
+      filterLevel.value = '';
+      filterUsers();
+    });
+
+    // Modal logic
+    const modal = document.getElementById('w3-userModal');
+    const openBtn = document.getElementById('w3-openModalBtn');
+    const closeBtn = document.getElementById('w3-closeModalBtn');
+    const form = document.getElementById('w3-userForm');
+    const modalTitle = modal.querySelector('h2');
+    const usernameInput = document.getElementById('w3-username');
+    const emailInput = document.getElementById('w3-email');
+    const passwordInput = document.getElementById('w3-password');
+    const passwordSection = document.getElementById('passwordSection');
+    const levelSelect = document.getElementById('w3-level');
+    const submitBtn = document.getElementById('w3-submitBtn');
+
+    openBtn.onclick = () => {
+      modal.style.display = 'block';
+      modalTitle.textContent = 'Adicionar Novo Utilizador';
+      form.action = '/register/admin';
+      form.method = 'post';
+      usernameInput.value = '';
+      emailInput.value = '';
+      passwordInput.value = '';
+      passwordInput.required = true;
+      passwordSection.style.display = 'block';
+      levelSelect.value = '';
+      submitBtn.textContent = 'Registar';
+    };
+
+    closeBtn.onclick = () => {
+      modal.style.display = 'none';
+    };
+
+    window.onclick = (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    document.querySelectorAll('.edit-user-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Edit button clicked');
+        const id = button.getAttribute('data-id');
+        const username = button.getAttribute('data-username');
+        const email = button.getAttribute('data-email');
+        const level = button.getAttribute('data-level');
+
+        console.log(`Editing user with ID: ${id}`);
+
+        modal.style.display = 'block';
+        modalTitle.textContent = 'Editar Utilizador';
+        form.action= `/admin/users/${username}`;
+        form.method = 'put';
+        usernameInput.value = username;
+        emailInput.value = email;
+        passwordInput.required = false;
+        passwordSection.style.display = 'none';
+        levelSelect.value = level;
+        submitBtn.textContent = 'Atualizar';
+        console.log(`Form action set to: ${form.action}`);
+      });
+    });
